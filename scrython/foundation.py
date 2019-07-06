@@ -2,6 +2,7 @@ import aiohttp
 import asyncio
 import urllib
 
+
 class FoundationObject(object):
 
     def __init__(self, _url, override=False, **kwargs):
@@ -24,7 +25,9 @@ class FoundationObject(object):
             async with aiohttp.ClientSession(loop=loop) as client:
                 self.scryfallJson = await getRequest(client, self._url)
 
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         loop.run_until_complete(main(loop))
 
         if self.scryfallJson['object'] == 'error':
